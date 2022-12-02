@@ -1,8 +1,3 @@
-import telebot
-from telebot import types
-
-bot = telebot.TeleBot(token="5272601270:AAEyNRmEjxMLxxzcuLjwbViyDwx5j3pNEdo")
-
 #############
 # call.data
 
