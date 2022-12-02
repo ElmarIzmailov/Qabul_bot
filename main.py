@@ -1,8 +1,12 @@
+import telebot
 from main_var import *
+from telebot import types
 
+bot = telebot.TeleBot("<< You token >>")
 
 @bot.message_handler(commands=["start"])
 def welcome(message):
+    
     item = types.InlineKeyboardMarkup()
     item1 = types.InlineKeyboardButton("📍 Bizning manzilimiz", url=location)
     item2 = types.InlineKeyboardButton("👥 Bizning kanalimiz", url=group)
@@ -21,15 +25,18 @@ def welcome(message):
 
 @bot.callback_query_handler(func=lambda call: True)
 def call_data(call):
+    
     if call.data == admin:
+        
         item = types.InlineKeyboardMarkup()
         item1 = types.InlineKeyboardButton("🔙 Back", callback_data=back)
         item.row(item1)
         bot.send_message(call.message.chat.id,
-                         "😊 Ism - Elmar\n\n😊 Familiya - Izmailov\n\n✈️ Telegram akk - @E_l_m_a_r\n\n📱 Telefon raqam +998942584347",
+                         "😊 Ism - Elmar\n\n😊 Familiya - Izmailov\n\n✈️ Telegram akk - @E_l_m_a_r\n\n📱 Telefon raqam +9989425843..",
                          reply_markup=item)
 
     elif call.data == complaints:
+        
         item = types.InlineKeyboardMarkup()
         item1 = types.InlineKeyboardButton("🔙 Back", callback_data=back)
         item.row(item1)
@@ -39,6 +46,7 @@ def call_data(call):
         bot.register_next_step_handler(call.message, get_func)
 
     elif call.data == curse:
+        
         item = types.InlineKeyboardMarkup()
         item1 = types.InlineKeyboardButton("🖥 Kompyuter savodxonligi", callback_data=kompyter_sa)
         item2 = types.InlineKeyboardButton("📝 Frontend", callback_data=frondend)
@@ -51,6 +59,7 @@ def call_data(call):
         bot.send_message(call.message.chat.id, "😊 Qaysi kursga qiziktingiz", reply_markup=item)
 
     elif call.data == back:
+        
         item = types.InlineKeyboardMarkup()
         item1 = types.InlineKeyboardButton("📍 Bizning manzilimiz", url=location)
         item2 = types.InlineKeyboardButton("👥 Bizning kanalimiz", url=group)
@@ -68,27 +77,35 @@ def call_data(call):
                          reply_markup=item)
 
     if call.data == kompyter_sa:
+        
         item = types.InlineKeyboardMarkup()
         item1 = types.InlineKeyboardButton("🔙 Back", callback_data=back)
         item.row(item1)
         bot.send_message(call.message.chat.id, komp_info, reply_markup=item)
+    
     elif call.data == frondend:
+        
         item = types.InlineKeyboardMarkup()
         item1 = types.InlineKeyboardButton("🔙 Back", callback_data=back)
         item.row(item1)
         bot.send_message(call.message.chat.id, frondend_info, reply_markup=item)
+    
     elif call.data == backend:
+        
         item = types.InlineKeyboardMarkup()
         item1 = types.InlineKeyboardButton("🔙 Back", callback_data=back)
         item.row(item1)
         bot.send_message(call.message.chat.id, backend_info, reply_markup=item)
+    
     elif call.data == python:
+     
         item = types.InlineKeyboardMarkup()
         item1 = types.InlineKeyboardButton("🔙 Back", callback_data=back)
         item.row(item1)
         bot.send_message(call.message.chat.id, python_info, reply_markup=item)
 
     elif call.data == test:
+        
         ism = bot.send_message(call.message.chat.id, "Ismizi yozib qoldiring")
         bot.register_next_step_handler(ism, get_name)
 
@@ -96,11 +113,14 @@ def call_data(call):
 def get_name(message):
     global name
     name = message.text
+    
     try:
         if message.text.isalpha():
             lname = bot.send_message(message.chat.id, "Familiyangizni yozib qoldiring")
             bot.register_next_step_handler(lname, get_lname)
+        
         else:
+        
             item = types.InlineKeyboardMarkup()
             item1 = types.InlineKeyboardButton("📍 Bizning manzilimiz", url=location)
             item2 = types.InlineKeyboardButton("👥 Bizning kanalimiz", url=group)
@@ -138,6 +158,7 @@ def get_name(message):
 def get_lname(message):
     global lname
     lname = message.text
+   
     try:
         if message.text.isalpha():
             age = bot.send_message(message.chat.id, "Yoshizi yozib qoldiring")
